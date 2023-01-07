@@ -32,4 +32,14 @@ body {
   border-radius: 5px;
   height: 100px;
   width: 100px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.x {
+  background-image: url("./img/x-solid.svg");
+}
+
+.o {
+  background-image: url("./img/o-solid.svg");
 }
