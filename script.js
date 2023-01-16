@@ -22,7 +22,11 @@ const gameBoard = (() => {
       square.style.pointerEvents = "none";
       game.movesRemaining -= 1;
       game.checkGameOver();
-      game.nextPlayer();
+      if (game.movesRemaining === 0 && game.gameOver === false) {
+        game.endGame("It's a tie!");
+      } else {
+        game.nextPlayer();
+      }
     });
   });
 
@@ -38,7 +42,7 @@ const game = (() => {
   let activePlayer = playerOne;
   let movesRemaining = 9;
   let gameOver = false;
-  let result = "";
+  let textDisplay = document.querySelector("#text-display");
   const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -51,32 +55,34 @@ const game = (() => {
   ];
 
   function nextPlayer() {
+    if (gameOver) return;
     this.activePlayer === playerOne
       ? (this.activePlayer = playerTwo)
       : (this.activePlayer = playerOne);
+    textDisplay.textContent = `${this.activePlayer.name}, make your move.`;
   }
 
   function checkGameOver() {
-    winConditions.forEach((item, index) => {
-      if (
-        gameBoard.boardArray[item[0]] === this.activePlayer.marker &&
-        gameBoard.boardArray[item[1]] === this.activePlayer.marker &&
-        gameBoard.boardArray[item[2]] === this.activePlayer.marker
-      ) {
-        result = `${this.activePlayer.name} wins!`;
-        endGame(result);
-      }
+    const hasWon = winConditions.some(([a, b, c]) => {
+      return (
+        gameBoard.boardArray[a] === this.activePlayer.marker &&
+        gameBoard.boardArray[b] === this.activePlayer.marker &&
+        gameBoard.boardArray[c] === this.activePlayer.marker
+      );
     });
-    if (movesRemaining === 0) {
-      result = "It's a tie!";
-      endGame(result);
+    if (hasWon) {
+      console.log("Game Over");
+      console.log(textDisplay);
+      console.log(textDisplay.textContent);
+      endGame(`${this.activePlayer.name} wins!`);
+      console.log(textDisplay);
+      console.log(textDisplay.textContent);
     }
   }
 
-  function endGame(result) {
+  function endGame(string) {
     gameOver = true;
-    let winnerDisplay = document.querySelector("#text-display");
-    winnerDisplay.textContent = result;
+    textDisplay.textContent = string;
   }
 
   return {
@@ -84,6 +90,9 @@ const game = (() => {
     nextPlayer,
     movesRemaining,
     checkGameOver,
-    gameOver,
+    endGame,
+    get gameOver() {
+      return gameOver;
+    },
   };
 })();
