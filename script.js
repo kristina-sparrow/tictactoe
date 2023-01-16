@@ -71,12 +71,7 @@ const game = (() => {
       );
     });
     if (hasWon) {
-      console.log("Game Over");
-      console.log(textDisplay);
-      console.log(textDisplay.textContent);
       endGame(`${this.activePlayer.name} wins!`);
-      console.log(textDisplay);
-      console.log(textDisplay.textContent);
     }
   }
 
