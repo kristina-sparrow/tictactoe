@@ -37,9 +37,9 @@ body {
 }
 
 .x {
-  background-image: url("./img/x-solid.svg");
+  background-image: url("../assets/x-solid.svg");
 }
 
 .o {
-  background-image: url("./img/o-solid.svg");
+  background-image: url("../assets/o-solid.svg");
 }

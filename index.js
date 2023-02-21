@@ -1,15 +1,14 @@
-// player factory function
-const createPlayer = (name, marker) => {
-  return { name, marker };
-};
+// PLAYER FACTORY FUNCTION
+const createPlayer = (name, marker) => ({ name, marker });
 
-// gameBoard object
+// GAMEBOARD OBJECT
 const gameBoard = (() => {
-  let boardArray = ["", "", "", "", "", "", "", "", ""];
+  const boardArray = ["", "", "", "", "", "", "", "", ""];
   const board = document.querySelector("#gameboard");
-  boardArray.forEach((item, index) => {
+  boardArray.forEach((_, index) => {
     const square = document.createElement("div");
     square.className = "square";
+    square.setAttribute("data-index", index);
     board.appendChild(square);
   });
 
@@ -35,14 +34,14 @@ const gameBoard = (() => {
   };
 })();
 
-//game object
+// GAME OBJECT
 const game = (() => {
   const playerOne = createPlayer("Player 1", "x");
   const playerTwo = createPlayer("Player 2", "o");
-  let activePlayer = playerOne;
-  let movesRemaining = 9;
+  const activePlayer = playerOne;
+  const movesRemaining = 9;
   let gameOver = false;
-  let textDisplay = document.querySelector("#text-display");
+  const textDisplay = document.querySelector("#text-display");
   const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -56,28 +55,25 @@ const game = (() => {
 
   function nextPlayer() {
     if (gameOver) return;
-    this.activePlayer === playerOne
-      ? (this.activePlayer = playerTwo)
-      : (this.activePlayer = playerOne);
+    this.activePlayer = this.activePlayer === playerOne ? playerTwo : playerOne;
     textDisplay.textContent = `${this.activePlayer.name}, make your move.`;
-  }
-
-  function checkGameOver() {
-    const hasWon = winConditions.some(([a, b, c]) => {
-      return (
-        gameBoard.boardArray[a] === this.activePlayer.marker &&
-        gameBoard.boardArray[b] === this.activePlayer.marker &&
-        gameBoard.boardArray[c] === this.activePlayer.marker
-      );
-    });
-    if (hasWon) {
-      endGame(`${this.activePlayer.name} wins!`);
-    }
   }
 
   function endGame(string) {
     gameOver = true;
     textDisplay.textContent = string;
+  }
+
+  function checkGameOver() {
+    const hasWon = winConditions.some(
+      ([a, b, c]) =>
+        gameBoard.boardArray[a] === this.activePlayer.marker &&
+        gameBoard.boardArray[b] === this.activePlayer.marker &&
+        gameBoard.boardArray[c] === this.activePlayer.marker
+    );
+    if (hasWon) {
+      endGame(`${this.activePlayer.name} wins!`);
+    }
   }
 
   return {
