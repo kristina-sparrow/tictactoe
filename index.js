@@ -3,22 +3,23 @@ const createPlayer = (name, marker) => ({ name, marker });
 
 // GAMEBOARD OBJECT
 const gameBoard = (() => {
-  const boardArray = ["", "", "", "", "", "", "", "", ""];
-  const board = document.querySelector("#gameboard");
+  const display = document.querySelector("#gameboard");
+
+  const boardArray = Array.from({ length: 9 }, () => "");
   boardArray.forEach((_, index) => {
-    const square = document.createElement("div");
-    square.className = "square";
-    square.setAttribute("data-index", index);
-    board.appendChild(square);
+    const cell = document.createElement("div");
+    cell.className = "cell";
+    cell.setAttribute("data-index", index);
+    display.appendChild(cell);
   });
 
-  Array.from(board.children).forEach((square, index) => {
-    square.addEventListener("click", () => {
+  Array.from(display.children).forEach((cell, index) => {
+    cell.addEventListener("click", () => {
       if (game.gameOver) return;
-      square.classList.add(game.activePlayer.marker);
-      square.setAttribute("data", game.activePlayer.marker);
+      cell.classList.add(game.activePlayer.marker);
+      cell.setAttribute("data", game.activePlayer.marker);
       boardArray[index] = game.activePlayer.marker;
-      square.style.pointerEvents = "none";
+      cell.style.pointerEvents = "none";
       game.movesRemaining -= 1;
       game.checkGameOver();
       if (game.movesRemaining === 0 && game.gameOver === false) {
@@ -39,9 +40,10 @@ const game = (() => {
   const playerOne = createPlayer("Player 1", "x");
   const playerTwo = createPlayer("Player 2", "o");
   const activePlayer = playerOne;
-  const movesRemaining = 9;
-  let gameOver = false;
   const textDisplay = document.querySelector("#text-display");
+
+  let gameOver = false;
+  const movesRemaining = 9;
   const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
