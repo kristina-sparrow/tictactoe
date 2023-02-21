@@ -23,7 +23,7 @@ const gameBoard = (() => {
       game.movesRemaining -= 1;
       game.checkGameOver();
       if (game.movesRemaining === 0 && game.gameOver === false) {
-        game.endGame("It's a tie!");
+        game.endGame("It's a tie! Refresh the page to play again.");
       } else {
         game.nextPlayer();
       }
@@ -74,7 +74,9 @@ const game = (() => {
         gameBoard.boardArray[c] === this.activePlayer.marker
     );
     if (hasWon) {
-      endGame(`${this.activePlayer.name} wins!`);
+      endGame(
+        `${this.activePlayer.name} wins! Refresh the page to play again.`
+      );
     }
   }
 

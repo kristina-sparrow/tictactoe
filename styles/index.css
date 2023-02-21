@@ -1,45 +1,110 @@
+/* VARIABLES & FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+/* STYLES */
 *,
 *::before,
 *::after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(47, 47, 47);
+}
+
 body {
-  margin: 0;
-  padding: 0;
+  height: 100vh;
+  width: 100%;
+  background: url("../assets/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 30px;
+}
+
+.header {
+  font-family: "Bungee", "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  padding-bottom: 20px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
 }
 
 #gameboard-container {
-  background-color: antiquewhite;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  padding: 5px;
+  padding: 30px;
 }
-
-#gameboard {
+#gameboard-container #gameboard {
   display: grid;
-  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  grid-template: repeat(3, 1fr)/repeat(3, 1fr);
   gap: 5px;
 }
-
-.cell {
-  background-color: aliceblue;
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  height: 100px;
-  width: 100px;
-  background-repeat: no-repeat;
-  background-position: center center;
+#gameboard-container #gameboard .cell {
+  background-color: hsl(0deg, 0%, 100%);
+  height: 125px;
+  width: 125px;
+  position: relative;
+}
+#gameboard-container #gameboard .cell.x {
+  background-color: #f7928f;
+  color: #eb5a54;
+}
+#gameboard-container #gameboard .cell.x::after {
+  content: "\f7e4";
+  color: #eb5a54;
+  font-family: "Font Awesome 5 Free";
+  font-size: 5rem;
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#gameboard-container #gameboard .cell.o {
+  background-color: #ffea8c;
+  color: #d5b839;
+}
+#gameboard-container #gameboard .cell.o::after {
+  content: "\f6d5";
+  color: #d5b839;
+  font-family: "Font Awesome 5 Free";
+  font-size: 5rem;
+  font-weight: 900;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#gameboard-container #gameboard .cell:hover {
+  transform: scale(1.03);
+  background-color: rgb(226, 226, 226);
 }
 
-.x {
-  background-image: url("../assets/x-solid.svg");
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: rgb(68, 68, 68);
+  font-size: 0.8rem;
 }
-
-.o {
-  background-image: url("../assets/o-solid.svg");
-}
+.footer i {
+  color: rgb(68, 68, 68);
+}/*# sourceMappingURL=index.css.map */
